@@ -1,0 +1,101 @@
+
+<div class="md-padding" layout="row" layout-wrap layout-align="start" ng-if="!loading">
+
+  <div class="md-padding" flex="35" layout-margin layout-align="start end">
+    <h1 class="md-display-3">{{ title }}</h1>
+
+  </div>
+
+  <div flex="55" class="md-padding" layout="row" layout-align="end end" layout-margin >
+    <md-button class="md-icon-button md-primary" aria-label="Settings" ng-click="mode=1">
+    <md-icon md-svg-icon="mdi:view-list"  style="color: black;"></md-icon>
+    <md-tooltip hide-sm>
+    View List
+    </md-tooltip>
+    </md-button>
+    <md-button class="md-icon-button md-primary" aria-label="Settings" ng-click="mode=2">
+      <md-icon md-svg-icon="mdi:view-module" style="color: black;"></md-icon>
+      <md-tooltip hide-sm>
+     View Module
+      </md-tooltip>
+    </md-button>  
+  </div>
+
+<span flex></span>
+
+<!-- START POSTER VIEW -->
+<md-card style="width: 650px;" ng-repeat="movie in movies.results  | orderBy: orderFilter" ng-show="mode==1" > 
+
+
+<md-card-content layout="row" layout-sm="column" style="padding: 0px;">
+
+<div flex="33" flex-sm="33" layout-fill>   
+
+  <a ui-sref="detail({ movieId: movie.id })">
+    <img hide-sm layout-fill ng-src="{{ movie.poster_path | image: '185' }}" class="md-card-image " >
+    <img hide-gt-sm ng-src="{{ movie.poster_path | image: '185' }}" class="md-card-image " >
+  </a> 
+  
+</div>
+
+<div layout-padding flex layout="column" >
+
+  <div flex>
+    <a ui-sref="detail({ movieId: movie.id })">
+    <h3 class="md-title" style="margin-top: 0">{{ movie.title }}</h3>      
+    </a>     
+    <p class="md-body-1"><md-icon md-svg-icon="mdi:star" class="md-title"></md-icon>{{ movie.vote_average }}</p> 
+    <p class="md-body-1"><md-icon md-svg-icon="mdi:calendar" class="md-title"></md-icon>{{ movie.release_date | date: 'MMM dd, yyyy' }}</p>
+    <p style="margin-top:10px">{{ movie.overview | limitTo: 180 }} {{ movie.overview.length > 180 ? '...' : ''}}</p>
+  </div>
+
+  <div flex>
+    <md-divider></md-divider>
+    <md-button class="md-primary md-button md-raised" ui-sref="detail({ movieId: movie.id })" style="margin-left: 0px;">More Information</md-button> 
+  </div>
+
+</div>
+</md-card-content> 
+</md-card>
+<!-- END POSTER VIEW -->
+
+<!-- BACKDROP VIEW START -->
+<md-card style="width: 650px;" ng-repeat="movie in movies.results  | orderBy: orderFilter" ng-show="mode==2">   
+<a ui-sref="detail({ movieId: movie.id })"><img ng-src="{{ movie.backdrop_path | image: '780' }}" class="md-card-image" ></a>
+
+<md-card-content>
+<div layout="row" layout-wrap>
+  <div flex="66"> <a ui-sref="detail({ movieId: movie.id })"><p class="md-title">{{ movie.title}}</p> </a> </div>
+  <div flex="33"><p class="md-title" style="text-align:right">{{ movie.vote_average }}<ng-md-icon icon="star" size="16"></ng-md-icon></p> </div>
+</div>
+
+
+</md-card-content>
+<div class="md-actions" layout="row" layout-align="end center">    
+    <!--<md-button>Action 1</md-button>
+    <md-button>Action 2</md-button>-->
+  </div>
+</md-card>
+
+<!-- END BACKDROP VIEW -->
+
+
+</div>
+
+<md-divider></md-divider>
+<div layout="row" ng-if="!loading" class="animate-if">
+  <div flex> <p layout-margin layout-padding>Currently on page: {{ movies.page}} of {{ movies.total_pages }}    
+  </p>  </div>
+  <div flex>
+    <div layout="row" layout-align="end center">
+      <div> <md-button  class="md-raised md-primary" ng-show="movies.page > 1" ng-click="previousPage()">
+        <md-icon md-svg-icon="navigation:arrow_back"></md-icon>Back
+      </md-button>
+    </div>
+    <div><md-button class="md-raised md-primary" ng-show="movies.page < movies.total_pages" ng-click="nextPage()">Next<md-icon md-svg-icon="navigation:arrow_forward"></md-icon>  
+    </md-button></div>           
+  </div></div>
+</div>   
+
+
+

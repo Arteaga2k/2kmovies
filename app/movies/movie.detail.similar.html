@@ -1,0 +1,50 @@
+<div layout="row" layout-sm="column" layout-margin class="md-whiteframe-1dp">
+
+ <div flex="15" flex-sm="50">     
+   <img layout-fill ng-src="{{ movie.poster_path | image: '185'}}}}"  >     
+ </div>
+ <md-content flex layout-padding>
+ <h2  class="md-display-3" md-long-text style="margin-top: 0px;"> <a ui-sref="detail({ movieId: movie.id })">{{ movie.original_title }}</a><span class="md-body-1"> ({{ movie.release_date | date:'yyyy' }})</span></h2>   
+ <p md-long-text>{{ movie.overview }}</p>   
+</md-content>
+
+</div>
+
+
+<div layout="row" layout-margin class="md-whiteframe-1dp">
+
+
+  <div flex>
+   <md-subheader class="md-no-sticky" style="margin-right: 0px;"><strong>Similar Movies</strong></md-subheader>
+
+   <md-list-item ng-repeat="movie in similar.results | orderBy:'-release_date'" layout-margin class="md-2-line">   
+   <img alt="{{  }}" ng-src="{{ movie.poster_path | image: '92'}}" />         
+   <div class="md-list-item-text" layout-margin style="margin-top: 0px;">    
+    <p>{{ movie.release_date | date: 'yyyy'}}</p>
+    <p><a ui-sref="detail({ movieId: movie.id })">{{ movie.title }}</a></p>
+  </div>
+</md-list-item>  
+<md-divider></md-divider>     
+<div layout="row">
+ <div flex>
+  <p layout-margin layout-padding>Currently on page: {{ similar.page}} of {{ similar.total_pages }} </p>  
+</div>
+<div flex>
+  <div layout="row" layout-align="end center">
+    <div> <md-button  class="md-raised md-primary" ng-show="similar.page > 1" ng-click="previousPage()">
+      <md-icon md-svg-icon="navigation:arrow_back"></md-icon>Back
+    </md-button>
+  </div>
+  <div><md-button class="md-raised md-primary" ng-show="similar.page < similar.total_pages" ng-click="nextPage()">Next<md-icon md-svg-icon="navigation:arrow_forward"></md-icon>  
+  </md-button></div>           
+</div>
+</div>
+</div>                 
+
+</div>        
+</div>
+
+</div>
+
+
+

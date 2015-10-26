@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>My AngularJS App</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--<link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">-->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="app.css">
+  <!-- font awesome from BootstrapCDN -->
+  <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> 
+  <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">  
+  <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css">  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body layout="row" ng-controller="MoviesCtrl as ctrl">  
+  <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-5dp" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">   
+   
+    <md-toolbar class="md-hue-2">
+    <section layout="row" layout-phone="column" layout-align="end center" hide-gt-md>
+       <md-button aria-label="Close menu" class="md-icon-button" ng-click="close()" style="float:right;">
+        <md-icon md-svg-icon="mdi:close"></md-icon>
+        </md-button>
+    </section>
+   <md-list-item hide-sm>
+   </md-list-item>       
+      <md-list-item>    
+      <img alt="" ng-src="https://lh3.googleusercontent.com/-91WcHdMg1L0/VfFzeYKazQI/AAAAAAAAABY/dglemGeyIac/w140-h140-p/mtbplayacruce%255B1%255D.jpg" class="avatar"/>      
+      </md-list-item>   
+      <md-list-item class="md-2-line">    
+        <div class="md-list-item-text">
+           <p class="md-body-2"><strong>Carlos Arteaga Virella</strong></p>  
+        <p class="md-body-2">arteaga.dev@gmail.com</p>
+        </div>
+      </md-list-item>  
+     
+    </md-toolbar>
+    <md-list>
+  
+      <md-subheader style="color:#3f51b5" >MOVIES</md-subheader>
+       <md-divider ></md-divider>
+
+      <md-item ng-repeat="item in menuOptions">
+        <a ui-sref= "{{ item.ref }}"  class="asidenav" ng-click="toggleSidenav('left')">
+            <md-item-content md-ink-ripple layout="row" layout-align="start center" ng-class="{'mdsidenav' : menu === item.class}" >
+            <div class="inset">   
+              <md-icon md-svg-icon="{{ item.icon }}" ng-class="{'iconmdsidenav' : menu === item.class}"></md-icon>
+            </div>
+            <div class="inset">{{ item.title }}
+            </div>
+            <span flex></span>
+            <div class="inset"> 
+             <md-button class="md-warn md-mini md-raised" ng-if="menu === item.class">{{ totalResults}}</md-button>              
+            </div>
+          </md-item-content>
+        </a>
+      </md-item>
+    </md-list>
+
+</md-sidenav>
+
+<div layout="column" class="relative" layout-fill role="main">  
+
+
+<md-toolbar>
+  <div class="md-toolbar-tools">
+    <md-button ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">   
+    <md-icon md-svg-icon="mdi:menu"></md-icon>
+    </md-button>
+
+    <md-autocomplete  
+    style="color: black;"
+              flex 
+              ng-disabled="ctrl.isDisabled" 
+              md-no-cache="true" 
+              md-selected-item="selectedItem" 
+              md-search-text-change="ctrl.searchTextChange(searchText)" 
+              md-search-text="searchText" 
+              md-selected-item-change="ctrl.selectedItemChange(item)" 
+              md-items="item in ctrl.querySearch(searchText)" 
+              md-item-text="item.display" 
+              md-min-length="0" 
+              placeholder="Type to search..."
+              md-menu-class="autocomplete-custom-template"> 
+              <md-item-template>
+                <span class="item-title">
+                 <md-icon md-svg-icon="av:movie" style="color: black;"></md-icon>
+                  <span> {{item.display}} </span>
+                </span>
+                <span class="item-metadata">
+                  <span class="item-metastat">
+                    <strong>({{item.date | date: 'yyyy'}})</strong> 
+                  </span>               
+                </span>
+              </md-item-template>               
+              <md-not-found>No matches found</md-not-found>
+          </md-autocomplete>
+          <md-button class="md-icon-button" aria-label="More">
+            <md-icon md-svg-icon="action:search"></md-icon>
+          </md-button>    
+  
+  </div>
+  <md-progress-linear  md-mode="indeterminate" class="md-warn" ng-if="loading"></md-progress-linear>
+</md-toolbar>
+<md-content ui-view flex md-scroll-y style="background-color: #FAFAFA;">
+</md-content>
+</div> 
+
+  <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+      <![endif]-->
+   
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+-->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script> 
+<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script> 
+<script src="bower_components/angular-resource/angular-resource.js"></script> 
+<script src="bower_components/angular-aria/angular-aria.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-material/angular-material.js"></script>
+<script src="bower_components/ngstorage/ngStorage.min.js"></script>
+<script src="bower_components/angular-socialshare/dist/angular-socialshare.min.js"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
+<script src="bower_components/angular-youtube-mb/dist/angular-youtube-embed.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.5.0/angular-material-icons.min.js"></script> 
+<script src="app.js"></script>
+<script src="movies/movies.js"></script>
+<script src="person/person.js"></script>
+<script src="commonServices.js"></script>
+<script src="filters.js"></script>
+<script src="components/version/version.js"></script>
+<script src="components/version/version-directive.js"></script>
+<script src="components/version/interpolate-filter.js"></script>
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/velocity/velocity.js"></script>
+<script src="bower_components/moment/min/moment-with-locales.js"></script>
+<script src="bower_components/angular-aria/angular-aria.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+</body>
+
+
+</html>

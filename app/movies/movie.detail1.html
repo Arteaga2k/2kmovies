@@ -1,0 +1,195 @@
+<div layout="row" layout-sm="column" layout-margin >
+    <div flex class="md-whiteframe-1dp">
+      <md-grid-list
+        md-cols-sm="1" 
+        md-cols-md="3" 
+        md-cols-gt-md="6"
+        md-row-height-gt-md="3:1" 
+        md-row-height="3:1"
+        md-gutter="0px" 
+        md-gutter-gt-sm="0px" >
+        <md-grid-tile          
+          md-rowspan="10" 
+          md-rowspan-sm="2"
+          md-colspan="6" 
+          md-colspan-sm="1">
+              <a href="#" id="play" ng-click="showAdvanced($event,movie.original_title )" ng-if="!mobileScreen">
+                <span class="play" >&#9658; Trailer</span>
+                <div class="overlay"></div>
+              </a>
+             <img  layout-fill ng-src="{{ movie.images.backdrops[0].file_path  | image: 'original'}}" alt="" />
+          <md-grid-tile-footer>
+            <h3 class="md-headline">{{ movie.title }}</h3>
+          </md-grid-tile-footer>
+        </md-grid-tile>     
+    </md-grid-list>   
+    </div>
+    <div flex  class="md-whiteframe-1dp" hide-sm>   
+        <md-subheader class="md-no-sticky" style="margin-right: 0px;"><strong>Backdrops</strong> 
+        </md-subheader>
+       <md-grid-list
+              md-cols-sm="1" 
+              md-cols-md="3" 
+              md-cols-gt-md="6"
+              md-row-height-gt-md="3:1" 
+              md-row-height="3:1"
+              md-gutter="1px" 
+              md-gutter-gt-sm="0px" >       
+              <md-grid-tile ng-repeat="backdrop in movie.images.backdrops | limitTo: 9 : 1"
+                md-rowspan="3" 
+                md-rowspan-sm="1"
+                md-colspan="2" 
+                md-colspan-sm="1">
+                <img  layout-fill ng-src="{{ backdrop.file_path | image: '300'}}" alt=""  ng-click="showRawImage(backdrop.file_path)"/>        
+        </md-grid-tile>    
+    </md-grid-list>   
+
+    </div>
+
+</div>
+
+<div layout="row" layout-sm="column" layout-margin >
+
+    <div flex class="md-whiteframe-1dp" >
+    
+        <md-subheader class="md-no-sticky" style="margin-right: 0px;"><strong>{{ movie.title }}</strong> 
+        </md-subheader>
+        <md-list-item>               
+          <p class="md-body-1" style="color: #337ab7;">{{ movie.tagline ? movie.tagline : '-' }}</p>       
+        </md-list-item>  
+        <md-list-item>               
+          <p class="md-body-2">{{ movie.overview }}</p>       
+        </md-list-item> 
+         <md-list-item>               
+         <p class="md-body-2"><strong>Genres:</strong></p> 
+        </md-list-item> 
+
+        <md-list-item>   
+        <p>
+          <md-chips ng-model="movie.genres" readonly="true">
+              <md-chip-template>{{$chip.name}}</md-chip-template>
+          </md-chips>     </p>       
+        </md-list-item>      
+         <md-list-item>                     
+          <p class="md-body-2"><strong>IMDB: </strong><a href="http://www.imdb.com/title/{{ movie.imdb_id}}/">http://www.imdb.com/title/{{ movie.imdb_id}}/</a> </p>       
+        </md-list-item > 
+        <md-list-item layout-align="start center">   
+         <md-button class="md-primary md-button md-raised" ng-click="showAdvanced($event,movie.original_title )" ng-if="mobileScreen">Watch Trailer</md-button> 
+        </md-list-item>   
+   
+    </div>   
+
+    <div flex  class="md-whiteframe-1dp">   
+     
+        <md-subheader class="md-no-sticky" style="margin-right: 0px;"><strong>Movie Facts</strong></md-subheader>
+        <md-list-item>
+          <md-icon md-svg-icon="mdi:clock"></md-icon>       
+          <p>{{ movie.runtime }} min.</p>       
+        </md-list-item>
+        <md-divider></md-divider>    
+        <md-list-item>
+          <md-icon md-svg-icon="mdi:calendar-text"></md-icon>       
+          <p>{{ movie.release_date | date:'MMM dd, yyyy' }}</p>       
+        </md-list-item>
+         <md-divider></md-divider>    
+         <md-list-item>
+          <md-icon md-svg-icon="mdi:star"></md-icon>       
+          <p>{{ movie.vote_average }}/10 from {{ movie.vote_count }} users</p>       
+        </md-list-item>
+         <md-divider></md-divider>    
+         <md-list-item>
+          <md-icon md-svg-icon="mdi:home"></md-icon>       
+          <p><a href="{{ movie.homepage ? movie.homepage : '-' }}">{{ movie.homepage ? movie.homepage : '-' }}</a></p>       
+        </md-list-item>  
+          <md-divider></md-divider>    
+         <md-list-item layout-margin>         
+               
+             <md-button class="md-fab md-mini"  ng-class="{'md-primary' : faved, '' : !faved }" aria-label="Favorite" ng-click="saveFavourite(movie.id, movie.images.backdrops[0].file_path, movie.title, movie.release_date)">
+                <md-tooltip>
+                Add to favourites
+                </md-tooltip>
+                <md-icon md-svg-icon="mdi:heart"></md-icon>     
+              </md-button>            
+
+             <md-fab-speed-dial md-open="false" md-direction="right" ng-class="md-scale" class='md-scale'>
+            <md-fab-trigger>
+              <md-button aria-label="menu" class="md-fab md-mini md-primary">
+                 <md-icon md-svg-icon="social:share"></md-icon>   
+              </md-button>
+            </md-fab-trigger>
+
+            <md-fab-actions>
+              <a href="#" 
+                socialshare
+                socialshare-provider="twitter"
+                socialshare-text="{{ movie.title }}"
+                socialshare-url="{{ movie.homepage }}">
+              <md-button aria-label="Twitter" class="md-fab  md-mini">
+               <md-icon md-svg-icon="mdi:twitter"></md-icon>   
+              </md-button>
+              </a>
+              <a href="#" 
+                socialshare
+                socialshare-provider="facebook"
+                socialshare-text="movie.title"
+                socialshare-url="{{ movie.homepage }}">
+                <md-button aria-label="Facebook" class="md-fab  md-mini">
+                 <md-icon md-svg-icon="mdi:facebook"></md-icon>  
+                </md-button>
+              </a>
+               <a href="#" 
+                socialshare
+                socialshare-provider="google+"
+                socialshare-text="movie.title"
+                socialshare-url="{{ movie.homepage }}">
+                <md-button aria-label="Google Hangout" class="md-fab md-mini">
+                   <md-icon md-svg-icon="mdi:google-plus"></md-icon>   
+                </md-button>
+               </a>
+            </md-fab-actions>
+            </md-fab-speed-dial>
+
+ 
+        </md-list-item>                
+     
+    </div>
+
+</div>
+
+<div layout="row" layout-sm="column" layout-margin>
+
+    <div flex class="md-whiteframe-1dp" style="max-height:450px;">    
+
+      <md-subheader class="md-no-sticky" style="margin-right: 0px;"><strong>Cast</strong></md-subheader>
+        <md-list-item ng-repeat="person in  movie.credits.cast | limitTo: 6">
+         <img alt="{{ person.name }}" ng-src="{{ person.profile_path | image: '45'}}" class="md-avatar"/>     
+          <p> <a ui-sref="personDetail({ personId: person.id })">{{ person.name }}</a> </p>
+                <p>...</p>
+                <p>{{ person.character }}</p>
+        </md-list-item>
+       <md-divider></md-divider>      
+        <md-list-item>    
+         <p layout-padding><a ui-sref="cast({ movieId: movie.id })">See full cast &nbsp;»</a></p>
+         </md-list-item>
+    </div>  
+    
+    
+
+
+     <div flex  class="md-whiteframe-1dp">     
+
+        <md-subheader class="md-no-sticky" style="margin-right: 0px;"><strong>Similar movies</strong></md-subheader>
+        <md-list-item class="md-2-line"  ng-repeat="similar in movie.similar.results | limitTo: 5">
+        <a ui-sref="detail({ movieId: movie.id })"><img  layout-padding ng-src="{{ similar.poster_path | image: '92'}}" alt="{{ similar.title }}" /> </a>
+          <div class="md-list-item-text" layout-margin style="margin-top: 8px;">
+            <h3><a ui-sref="detail({ movieId: similar.id })">{{ similar.title }}</a></h3>
+               <p>{{ similar.release_date | date:'MMM dd, yyyy' }}</p>   
+          </div>
+        </md-list-item>
+        <md-divider ></md-divider>
+         <p ng-if="!movie.similar.results.length" layout-padding>-</p>
+         <p ng-if="movie.similar.results.length" layout-padding><a ui-sref="similar({ movieId: movie.id })">See all similar movies &nbsp;»</a></p>
+    </div>    
+</div>
+
+ 

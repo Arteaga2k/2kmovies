@@ -1,0 +1,16 @@
+<md-dialog aria-label="title" style="background-color: black;"  class="fullscreen-dialog">
+  <form>  
+   <md-button aria-label="close window" class="md-icon-button" ng-click="cancel()">
+        <md-icon md-svg-icon="mdi:close" style="color: white;"></md-icon>
+   </md-button>
+  <md-dialog-content>
+    <div ng-repeat="trailer in videos.results | limitTo:1" layout-fill class="embed-responsive embed-responsive-16by9">
+        <!--<iframe  width="800px" height="500px" ng-src="{{getIframeSrc(trailer.key)}}" frameborder="0" allowfullscreen></iframe>-->       
+        <youtube-video  video-id="trailer.key"></youtube-video>
+      
+    </div>   
+     <img layout-fill ng-if="noTrailer" src="http://dummyimage.com/600x400/000/fff.png&text=Trailer+not+available" alt="">                                        
+  </md-dialog-content>  
+
+  </form>
+</md-dialog>

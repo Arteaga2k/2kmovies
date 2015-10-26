@@ -1,0 +1,22 @@
+
+<div class="md-padding" layout="row" layout-wrap layout-align="start">
+<md-card style="width: 650px;" ng-repeat="movie in favourites">   
+<a ui-sref="detail({ movieId: movie.id })"><img ng-src="{{ movie.poster | image: '780' }}" class="md-card-image" ></a>
+
+<md-card-content> 
+<div layout="row" >
+	<div flex="90">
+  	<a class="md-title" ui-sref="detail({ movieId: movie.id })">{{ movie.title}} </a>   
+  	</div>  
+  	<div flex>
+     <md-button class="md-fab md-mini md-primary" aria-label="Favorite" ng-click="saveFavourite(movie.id, movie.poster, movie.title, movie.date)">
+	 <md-icon md-svg-icon="mdi:heart"></md-icon>     
+    </md-button> 
+    </div>
+</div>
+</md-card-content>
+
+<div class="md-actions" layout="row" layout-align="end center">  
+</div>
+</md-card>
+

@@ -1,0 +1,57 @@
+<div layout="row" layout-margin class="md-whiteframe-z2">
+
+ <div flex layout-padding>
+
+
+    <md-list>
+     
+      <md-list-item class="md-3-line" >
+       <img ng-src="http://image.tmdb.org/t/p/w185{{ movie.poster_path }}"  >   
+        <div class="md-list-item-text" layout="column">
+          <h3> <a ui-sref="detail({ movieId: movie.id })">{{ movie.original_title }}</a><span class="md-body-1">({{ movie.release_date | date:'yyyy' }})</span></h3>           
+          <h4>Backdrops</h4>      
+        </div>
+      </md-list-item>
+    
+    </md-list>
+     <md-subheader class="md-no-sticky">Directed by</md-subheader>
+      <md-list-item class="md-2-line">
+        <md-icon md-svg-icon="communication:phone" ng-if="$index === 0"></md-icon>
+        <div class="md-list-item-text" ng-class="{'md-offset': $index != 0 }">
+         <p><span ng-repeat="director in credits.crew | filter:{ job:'Director'}:true">{{$first ? '' : $last ? ' and ' : ', '}}{{ director.name }}</span></p>
+        
+        </div>
+      </md-list-item>
+    </md-list>
+
+     </md-list>
+     <md-subheader class="md-no-sticky">Writing Credits</md-subheader>
+      <md-list-item class="md-2-line">
+        <md-icon md-svg-icon="communication:phone" ng-if="$index === 0"></md-icon>
+        <div class="md-list-item-text" ng-class="{'md-offset': $index != 0 }">
+        <p><span ng-repeat="writer in credits.crew | filter:{ job:'Writer'}">{{$first ? '' : $last ? ' and ' : ', '}}{{ writer.name }}</span></p>
+        
+        </div>
+      </md-list-item>
+    </md-list>
+
+     </md-list>
+     <md-subheader class="md-no-sticky">Cast (in credits order)</md-subheader>
+       <md-list >       
+        <md-list-item ng-repeat="person in  credits.cast" >
+          <img layout-padding alt="{{ person.name }}" ng-src="http://image.tmdb.org/t/p/w45{{ person.profile_path }}" >
+          <p>{{ person.name }}</p>
+          <p>...</p>
+          <p>{{ person.character }}</p>
+        </md-list-item>  
+         <md-divider></md-divider>                   
+      </md-list>
+    </md-list>
+
+  
+</div>    
+   
+</div>
+
+
+

@@ -1,0 +1,70 @@
+<div layout="row" layout-sm="column" layout-margin class="md-whiteframe-1dp">
+
+ <div flex="15" flex-sm="50">     
+   <img layout-fill ng-src="{{ movie.poster_path | image: '185'}}"  >     
+</div>
+ <md-content flex layout-padding>
+  <h2  class="md-display-3" md-long-text style="margin-top: 0px;"> <a ui-sref="detail({ movieId: movie.id })">{{ movie.original_title }}</a><span class="md-body-1">({{ movie.release_date | date:'yyyy' }})</span></h2>   
+    <p md-long-text>{{ movie.overview }}</p>   
+</md-content>
+
+</div>
+
+
+
+<div layout="row" layout-margin class="md-whiteframe-z2">
+
+ <div flex layout-padding>
+
+     <md-subheader class="md-no-sticky"><strong>Directed by</strong></md-subheader>
+      <md-list-item>
+        
+        <div class="md-list-item-text" ng-class="{'md-offset': $index != 0 }">
+         <p><span ng-repeat="director in credits.crew | filter:{ job:'Director'}:true"><a ui-sref="personDetail({ personId: director.id })">{{$first ? '' : $last ? ' and ' : ', '}}{{ director.name }}</a></span></p>
+        
+        </div>
+      </md-list-item>
+ 
+
+   
+     <md-subheader class="md-no-sticky"><strong>Writing Credits</strong></md-subheader>
+      <md-list-item>
+       
+        <div class="md-list-item-text" ng-class="{'md-offset': $index != 0 }">
+        <p><span ng-repeat="writer in credits.crew | filter:{ job:'Writer'}"><a ui-sref="personDetail({ personId: writer.id })">{{$first ? '' : $last ? ' and ' : ', '}}{{ writer.name }}</a></span></p>
+        
+        </div>
+      </md-list-item>
+
+
+  
+     <md-subheader class="md-no-sticky"><strong>Cast (in credits order)</strong></md-subheader>
+         <md-list-item class="md-2-line"  ng-repeat="person in  credits.cast">
+             <a ui-sref="personDetail({ personId: person.id })">
+              <img  layout-padding ng-src="{{ person.profile_path | image: '92' }}" alt="{{ person.name }}" /> </a>
+            <div class="md-list-item-text" layout-margin style="margin-top: 8px;">
+              <a ui-sref="personDetail({ personId: person.id })">{{ person.name }}</a>
+                  <p>{{ person.character }}</p>  
+            </div>
+        </md-list-item>
+
+
+
+
+
+       <!--<md-list >       
+        <md-list-item ng-repeat="person in  credits.cast" >
+        <a ui-sref="personDetail({ personId: person.id })">
+          <img layout-padding alt="{{ person.name }}" ng-src="{{ person.profile_path | image: '45'}}" ></a>
+          <p> <a ui-sref="personDetail({ personId: person.id })">{{ person.name }}</a></p>
+          <p>...</p>
+          <p>{{ person.character }}</p>
+        </md-list-item>  
+         <md-divider></md-divider>                   
+      </md-list>-->
+
+</div>       
+</div>
+
+
+

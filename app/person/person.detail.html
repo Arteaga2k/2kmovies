@@ -1,0 +1,47 @@
+<div layout="row" layout-sm="column" layout-margin class="md-whiteframe-1dp">
+
+ <div flex="12" flex-sm="50">
+   <img ng-src="{{ person.profile_path | image: '185'}}"  >     
+</div>
+ <md-content flex layout-padding>
+  <h2 class="md-display-3" md-long-text style="margin-top: 0px;"> 
+    {{ person.name }}<span class="md-body-1">({{ person.birthday | date:'yyyy' }})</span></h2>   
+    <p ng-bind-html="person.biography" id="explicitlyTrustedHtml" md-long-text></p>   
+</md-content>
+
+</div>
+
+<div layout="row" layout-margin class="md-whiteframe-1dp">
+  <div flex="50">
+   <md-subheader class="md-no-sticky" style="margin-right: 0px;"><strong>Cast</strong></md-subheader>
+      
+   <md-list-item ng-repeat="movie in credits.cast | orderBy:'-release_date'" layout-margin class="md-2-line" style="padding-left: 0px;">   
+   <img alt="{{ movie.title }}" ng-src="{{ movie.poster_path | image: '92'}}" />         
+   <div class="md-list-item-text" layout-margin style="margin-top:0px;margin-left: 5px;">    
+    <p>{{ movie.release_date | date: 'yyyy'}}</p>
+    <p><a ui-sref="detail({ movieId: movie.id })">{{ movie.title }}</a></p>
+    <p>as {{ movie.character ? movie.character : 'unknown' }}</p>
+  </div>
+</md-list-item>  
+<md-divider></md-divider>                   
+  
+</div>
+
+<div flex="50" style="margin-left:10px;" ng-if="credits.crew.length">
+  <md-subheader class="md-no-sticky"><strong>Crew</strong></md-subheader>
+       
+  <md-list-item ng-repeat="movie in  credits.crew | orderBy:'-release_date' " layout-margin class="md-2-line" style="padding-left: 0px;">
+  <img alt="{{ movie.title }}" ng-src="{{ movie.poster_path | image: '92'}}" />
+  <div class="md-list-item-text" style="margin-top:0px;margin-left: 5px;">
+    <p>{{ movie.release_date | date: 'yyyy' }}</p>        
+    <p><a ui-sref="detail({ movieId: movie.id })">{{ movie.title }}</a></p>   
+    <p>{{ movie.job }}</p>
+  </div>
+</md-list-item>                  
+
+</div>   
+
+</div>
+
+
+
