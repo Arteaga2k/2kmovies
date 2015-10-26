@@ -9,7 +9,7 @@ angular.module( 'myApp.movieServices', [
 /*myApp.factory('Movies', ['$resource',
 	function($resource){
 
-		var base = 'http://api.themoviedb.org/3';         
+		var base = 'https://api.themoviedb.org/3';         
 		var service = '/movie/upcoming';
 		var apiKey = '772240083742ec78bf7c36ab4965222f';      
 		var url = base + service + '?api_key=' + apiKey;
@@ -28,9 +28,9 @@ angular.module( 'myApp.movieServices', [
 
 .factory('Movies',['$resource','API_KEY', function($resource, API_KEY){
 	//var apiKey = '772240083742ec78bf7c36ab4965222f';    
-	return $resource('http://api.themoviedb.org/3/movie', {}, {		
+	return $resource('https://api.themoviedb.org/3/movie', {}, {		
 		movieDetail: {
-			url:'http://api.themoviedb.org/3/movie/:movieId',
+			url:'https://api.themoviedb.org/3/movie/:movieId',
 			method: 'JSONP',
 			isArray: false,
 			params: {						
@@ -41,7 +41,7 @@ angular.module( 'myApp.movieServices', [
 			cache: true
 		},
 		movieCredits: {
-			url:'http://api.themoviedb.org/3/movie/:movieId/credits',
+			url:'https://api.themoviedb.org/3/movie/:movieId/credits',
 			method: 'JSONP',
 			isArray: false,
 			params: {						
@@ -51,7 +51,7 @@ angular.module( 'myApp.movieServices', [
 			}
 		},
 		movieVideos: {
-			url:'http://api.themoviedb.org/3/movie/:movieId/videos',
+			url:'https://api.themoviedb.org/3/movie/:movieId/videos',
 			method: 'JSONP',
 			isArray: false,
 			params: {						
@@ -61,7 +61,7 @@ angular.module( 'myApp.movieServices', [
 			}
 		},
 		movieReviews: {
-			url:'http://api.themoviedb.org/3/movie/:movieId/reviews',
+			url:'https://api.themoviedb.org/3/movie/:movieId/reviews',
 			method: 'JSONP',
 			isArray: false,
 			params: {						
@@ -71,7 +71,7 @@ angular.module( 'myApp.movieServices', [
 			}
 		},
 		movieImages: {
-			url:'http://api.themoviedb.org/3/movie/:movieId/images',
+			url:'https://api.themoviedb.org/3/movie/:movieId/images',
 			method: 'JSONP',
 			isArray: false,
 			params: {						
@@ -81,7 +81,7 @@ angular.module( 'myApp.movieServices', [
 			cache: true
 		},
 		movieKeywords: {
-			url:'http://api.themoviedb.org/3/movie/:movieId/keywords',
+			url:'https://api.themoviedb.org/3/movie/:movieId/keywords',
 			method: 'JSONP',
 			isArray: false,
 			params: {						
@@ -91,7 +91,7 @@ angular.module( 'myApp.movieServices', [
 			}
 		},
 		upcomingMovies: {
-			url:'http://api.themoviedb.org/3/movie/upcoming',
+			url:'https://api.themoviedb.org/3/movie/upcoming',
 			method: 'JSONP',			
 			isArray: false,
 			params: {
@@ -102,7 +102,7 @@ angular.module( 'myApp.movieServices', [
 			}
 		},
 		topRatedMovies: {
-			url:'http://api.themoviedb.org/3/movie/top_rated', 
+			url:'https://api.themoviedb.org/3/movie/top_rated', 
 			method: 'JSONP',
 			isArray: false,
 			params: {						
@@ -112,7 +112,7 @@ angular.module( 'myApp.movieServices', [
 			}
 		},
 		popularMovies: {
-			url:'http://api.themoviedb.org/3/movie/popular',
+			url:'https://api.themoviedb.org/3/movie/popular',
 			method: 'JSONP',
 			isArray: false,
 			params: {						
@@ -122,7 +122,7 @@ angular.module( 'myApp.movieServices', [
 			}
 		},
 		nowplayingMovies: {
-			url:'http://api.themoviedb.org/3/movie/now_playing',
+			url:'https://api.themoviedb.org/3/movie/now_playing',
 			method: 'JSONP',
 			isArray: false,
 			params: {						
@@ -132,7 +132,7 @@ angular.module( 'myApp.movieServices', [
 			}
 		},
 		similarMovies: {
-			url:'http://api.themoviedb.org/3/movie/:movieId/similar',
+			url:'https://api.themoviedb.org/3/movie/:movieId/similar',
 			method: 'JSONP',
 			isArray: false,
 			params: {					
@@ -143,7 +143,7 @@ angular.module( 'myApp.movieServices', [
 			}
 		},
 		searchDb: {
-			url:'http://api.themoviedb.org/3/search/movie',
+			url:'https://api.themoviedb.org/3/search/movie',
 			method: 'JSONP',
 			isArray: false,
 			params: {						
@@ -158,7 +158,7 @@ angular.module( 'myApp.movieServices', [
 .factory('Person',['$resource','API_KEY', function($resource, API_KEY){
 	//var apiKey = '772240083742ec78bf7c36ab4965222f';    
 
-	return $resource('http://api.themoviedb.org/3/person/popular', {}, {
+	return $resource('https://api.themoviedb.org/3/person/popular', {}, {
 		popularPeople: {
 			method: 'JSONP',
 			isArray: false,
@@ -169,7 +169,7 @@ angular.module( 'myApp.movieServices', [
 			}
 		},
 		personDetail: {
-			url:'http://api.themoviedb.org/3/person/:personId',
+			url:'https://api.themoviedb.org/3/person/:personId',
 			method: 'JSONP',
 			isArray: false,
 			params: {						
@@ -179,7 +179,7 @@ angular.module( 'myApp.movieServices', [
 			}
 		},	
 		personCredits: {
-			url:'http://api.themoviedb.org/3/person/:personId/movie_credits',
+			url:'https://api.themoviedb.org/3/person/:personId/movie_credits',
 			method: 'JSONP',
 			isArray: false,
 			params: {						
