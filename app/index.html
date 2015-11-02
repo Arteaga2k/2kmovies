@@ -6,9 +6,9 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>My AngularJS App</title>
+  <title>An AngularJS && Angular Material app</title>
   <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
   <!--<link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">-->
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
@@ -69,14 +69,16 @@
 
 <div layout="column" class="relative" layout-fill role="main">  
 
-
-<md-toolbar>
+<md-content>
+<md-toolbar ng-show="showSearch">
   <div class="md-toolbar-tools">
     <md-button ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">   
     <md-icon md-svg-icon="mdi:menu"></md-icon>
     </md-button>
-
-    <md-autocomplete  
+      <md-button ng-click="showSearch = !showSearch" aria-label="Back">
+        <md-icon md-svg-icon="navigation:arrow_back"></md-icon>
+      </md-button>          
+    <md-autocomplete 
     style="color: black;"
               flex 
               ng-disabled="ctrl.isDisabled" 
@@ -103,14 +105,36 @@
               </md-item-template>               
               <md-not-found>No matches found</md-not-found>
           </md-autocomplete>
-          <md-button class="md-icon-button" aria-label="More">
+          <md-button class="md-icon-button" aria-label="More" ng-click="showSearch = !showSearch">
             <md-icon md-svg-icon="action:search"></md-icon>
           </md-button>    
   
   </div>
   <md-progress-linear  md-mode="indeterminate" class="md-warn" ng-if="loading"></md-progress-linear>
 </md-toolbar>
-<md-content ui-view flex md-scroll-y style="background-color: #FAFAFA;">
+</md-content>
+
+<md-content>
+<md-toolbar ng-show="!showSearch">
+<div class="md-toolbar-tools">
+         <md-button ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">   
+    <md-icon md-svg-icon="mdi:menu"></md-icon>
+    </md-button>
+        <h2>
+          <span></span>
+        </h2>
+        <span flex></span>
+          <md-button class="md-icon-button" aria-label="More" ng-click="showSearch = !showSearch">
+            <md-icon md-svg-icon="action:search"></md-icon>
+          </md-button>    
+          
+      </div>
+</md-toolbar>
+</md-content>
+
+
+
+<md-content ui-view flex md-scroll-y style="background-color: #FAFAFA;" >
 </md-content>
 </div> 
 
